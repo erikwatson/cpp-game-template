@@ -38,6 +38,34 @@ int main (int argc, char* argv[]) {
     return 1;
   }
 
+  if (IMG_Init(IMG_INIT_PNG) == 0) {
+    printf("Error SDL2_image Initialization");
+    return 2;
+  }
+
+  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+  if (renderer == NULL) {
+    printf("Error renderer creation");
+    return 3;
+  }
+
+  SDL_Surface* greenHillsSurface = IMG_Load("./assets/textures/green-hills.png");
+  
+  if (greenHillsSurface == NULL) {
+    printf("Error loading image: %s\n", IMG_GetError());
+    return 4;
+  }
+
+  SDL_Texture* greenHillsTexture = SDL_CreateTextureFromSurface(renderer, greenHillsSurface);
+  SDL_FreeSurface(greenHillsSurface);
+
+  if (greenHillsTexture == NULL) {
+    printf("Error creating texture");
+    return 5;
+  }
+
+
   // Game Loop 
   bool running = true;
 
@@ -92,9 +120,15 @@ int main (int argc, char* argv[]) {
     // Update 
 
     // Render
+    SDL_RenderClear(renderer);
+	  SDL_RenderCopy(renderer, greenHillsTexture, NULL, NULL);
+	  SDL_RenderPresent(renderer);
   }
 
+  SDL_DestroyTexture(greenHillsTexture);
+  SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
+  IMG_Quit();
   SDL_Quit();
 
   return 0;

@@ -9,9 +9,9 @@
                 "-std=c++17",
                 "-stdlib=libc++",
                 "-g",
-                "${file}",
+                "./src/main",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "./output/game"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -30,14 +30,14 @@
                 "-fdiagnostics-color=always",
                 "-v",
                 "-g",
-                "${file}",
+                "./src/main.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "./output/game",
                 "-lSDL2",
                 "-lSDL2_image",
             ],
             "options": {
-                "cwd": "${fileDirname}"
+              "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
